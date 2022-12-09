@@ -12896,27 +12896,9 @@ class _PickerViewState extends State<_PickerView>
       lastRange = _pickerStateDetails.selectedRanges![count - 1];
     }
 
-    if (lastRange != null &&
-        lastRange.startDate != null &&
-        (lastRange.endDate == null ||
-            isSameDate(lastRange.startDate, lastRange.endDate))) {
-      dynamic startDate = lastRange.startDate;
-      dynamic endDate = selectedDate;
-      if (startDate.isAfter(endDate) == true) {
-        final dynamic temp = startDate;
-        startDate = endDate;
-        endDate = temp;
-      }
-
-      final dynamic newRange = widget.picker.isHijri
-          ? HijriDateRange(startDate, endDate)
-          : PickerDateRange(startDate, endDate);
-      _pickerStateDetails.selectedRanges![count - 1] = newRange;
-    } else {
-      _pickerStateDetails.selectedRanges!.add(widget.picker.isHijri
-          ? HijriDateRange(selectedDate, null)
-          : PickerDateRange(selectedDate, null));
-    }
+    _pickerStateDetails.selectedRanges!.add(widget.picker.isHijri
+        ? HijriDateRange(selectedDate, null)
+        : PickerDateRange(selectedDate, null));
 
     count = _pickerStateDetails.selectedRanges!.length;
     _removeInterceptRanges(
