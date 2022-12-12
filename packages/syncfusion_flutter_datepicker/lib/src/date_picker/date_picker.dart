@@ -198,55 +198,57 @@ class SfDateRangePicker extends StatelessWidget {
   ///
   /// When the visible view changes, the widget will call the [onViewChanged]
   /// callback with the current view and the current view visible dates.
-  SfDateRangePicker(
-      {Key? key,
-      DateRangePickerView view = DateRangePickerView.month,
-      this.selectionMode = DateRangePickerSelectionMode.single,
-      this.headerHeight = 40,
-      this.todayHighlightColor,
-      this.backgroundColor,
-      DateTime? initialSelectedDate,
-      List<DateTime>? initialSelectedDates,
-      PickerDateRange? initialSelectedRange,
-      List<PickerDateRange>? initialSelectedRanges,
-      this.toggleDaySelection = false,
-      this.enablePastDates = true,
-      this.showNavigationArrow = false,
-      this.confirmText = 'OK',
-      this.cancelText = 'CANCEL',
-      this.showActionButtons = false,
-      this.selectionShape = DateRangePickerSelectionShape.circle,
-      this.navigationDirection = DateRangePickerNavigationDirection.horizontal,
-      this.allowViewNavigation = true,
-      this.navigationMode = DateRangePickerNavigationMode.snap,
-      this.enableMultiView = false,
-      this.controller,
-      this.onViewChanged,
-      this.onSelectionChanged,
-      this.onCancel,
-      this.onSubmit,
-      this.headerStyle = const DateRangePickerHeaderStyle(),
-      this.yearCellStyle = const DateRangePickerYearCellStyle(),
-      this.monthViewSettings = const DateRangePickerMonthViewSettings(),
-      this.monthCellStyle = const DateRangePickerMonthCellStyle(),
-      DateTime? minDate,
-      DateTime? maxDate,
-      DateTime? initialDisplayDate,
-      double viewSpacing = 20,
-      this.selectionRadius = -1,
-      this.selectionColor,
-      this.startRangeSelectionColor,
-      this.endRangeSelectionColor,
-      this.rangeSelectionColor,
-      this.selectionTextStyle,
-      this.rangeTextStyle,
-      this.monthFormat,
-      this.cellBuilder,
-      this.showTodayButton = false,
-      this.selectableDayPredicate,
-      this.extendableRangeSelectionDirection =
-          ExtendableRangeSelectionDirection.both})
-      : assert(headerHeight >= -1),
+  SfDateRangePicker({
+    Key? key,
+    DateRangePickerView view = DateRangePickerView.month,
+    this.selectionMode = DateRangePickerSelectionMode.single,
+    this.headerHeight = 40,
+    this.todayHighlightColor,
+    this.backgroundColor,
+    DateTime? initialSelectedDate,
+    List<DateTime>? initialSelectedDates,
+    PickerDateRange? initialSelectedRange,
+    List<PickerDateRange>? initialSelectedRanges,
+    this.toggleDaySelection = false,
+    this.enablePastDates = true,
+    this.showNavigationArrow = false,
+    this.confirmText = 'OK',
+    this.cancelText = 'CANCEL',
+    this.showActionButtons = false,
+    this.selectionShape = DateRangePickerSelectionShape.circle,
+    this.navigationDirection = DateRangePickerNavigationDirection.horizontal,
+    this.allowViewNavigation = true,
+    this.navigationMode = DateRangePickerNavigationMode.snap,
+    this.enableMultiView = false,
+    this.controller,
+    this.onViewChanged,
+    this.onSelectionChanged,
+    this.onCancel,
+    this.onSubmit,
+    this.headerStyle = const DateRangePickerHeaderStyle(),
+    this.yearCellStyle = const DateRangePickerYearCellStyle(),
+    this.monthViewSettings = const DateRangePickerMonthViewSettings(),
+    this.monthCellStyle = const DateRangePickerMonthCellStyle(),
+    DateTime? minDate,
+    DateTime? maxDate,
+    DateTime? initialDisplayDate,
+    double viewSpacing = 20,
+    this.selectionRadius = -1,
+    this.selectionColor,
+    this.startRangeSelectionColor,
+    this.endRangeSelectionColor,
+    this.rangeSelectionColor,
+    this.selectionTextStyle,
+    this.rangeTextStyle,
+    this.monthFormat,
+    this.cellBuilder,
+    this.showTodayButton = false,
+    this.selectableDayPredicate,
+    this.extendableRangeSelectionDirection =
+        ExtendableRangeSelectionDirection.both,
+    this.onTapCallBack,
+    this.onLongPressCallBack,
+  })  : assert(headerHeight >= -1),
         assert(minDate == null || maxDate == null || minDate.isBefore(maxDate)),
         assert(minDate == null || maxDate == null || maxDate.isAfter(minDate)),
         assert(viewSpacing >= 0),
@@ -2607,6 +2609,10 @@ class SfDateRangePicker extends StatelessWidget {
   /// ```
   final Function(Object?)? onSubmit;
 
+  final Function(PickerDateRange?)? onTapCallBack;
+
+  final Function(PickerDateRange?)? onLongPressCallBack;
+
   @override
   Widget build(BuildContext context) {
     return _SfDateRangePicker(
@@ -2656,6 +2662,8 @@ class SfDateRangePicker extends StatelessWidget {
       showTodayButton: showTodayButton,
       selectableDayPredicate: selectableDayPredicate,
       extendableRangeSelectionDirection: extendableRangeSelectionDirection,
+      onTapCallback: onTapCallBack,
+      onLongPressCallback: onLongPressCallBack,
     );
   }
 
@@ -2896,6 +2904,8 @@ class SfHijriDateRangePicker extends StatelessWidget {
     this.selectableDayPredicate,
     this.extendableRangeSelectionDirection =
         ExtendableRangeSelectionDirection.both,
+    this.onTapCallback,
+    this.onLongPressCallback,
   })  : initialSelectedDate =
             controller != null && controller.selectedDate != null
                 ? controller.selectedDate
@@ -5247,6 +5257,10 @@ class SfHijriDateRangePicker extends StatelessWidget {
   /// ```
   final Function(Object?)? onSubmit;
 
+  final Function(PickerDateRange?)? onTapCallback;
+
+  final Function(PickerDateRange?)? onLongPressCallback;
+
   @override
   Widget build(BuildContext context) {
     return _SfDateRangePicker(
@@ -5297,6 +5311,8 @@ class SfHijriDateRangePicker extends StatelessWidget {
       showTodayButton: showTodayButton,
       selectableDayPredicate: selectableDayPredicate,
       extendableRangeSelectionDirection: extendableRangeSelectionDirection,
+      onTapCallback: onTapCallback,
+      onLongPressCallback: onLongPressCallback,
     );
   }
 
@@ -5386,56 +5402,58 @@ class SfHijriDateRangePicker extends StatelessWidget {
 
 @immutable
 class _SfDateRangePicker extends StatefulWidget {
-  const _SfDateRangePicker(
-      {Key? key,
-      required this.view,
-      required this.selectionMode,
-      this.isHijri = false,
-      required this.headerHeight,
-      this.todayHighlightColor,
-      this.backgroundColor,
-      this.initialSelectedDate,
-      this.initialSelectedDates,
-      this.initialSelectedRange,
-      this.initialSelectedRanges,
-      this.toggleDaySelection = false,
-      this.enablePastDates = true,
-      this.showNavigationArrow = false,
-      required this.selectionShape,
-      required this.navigationDirection,
-      this.controller,
-      this.onViewChanged,
-      this.onSelectionChanged,
-      this.onCancel,
-      this.onSubmit,
-      required this.headerStyle,
-      required this.yearCellStyle,
-      required this.monthViewSettings,
-      required this.initialDisplayDate,
-      this.confirmText = 'OK',
-      this.cancelText = 'CANCEL',
-      this.showActionButtons = false,
-      required this.minDate,
-      required this.maxDate,
-      required this.monthCellStyle,
-      this.allowViewNavigation = true,
-      this.enableMultiView = false,
-      required this.navigationMode,
-      required this.viewSpacing,
-      required this.selectionRadius,
-      this.selectionColor,
-      this.startRangeSelectionColor,
-      this.endRangeSelectionColor,
-      this.rangeSelectionColor,
-      this.selectionTextStyle,
-      this.rangeTextStyle,
-      this.monthFormat,
-      this.cellBuilder,
-      this.showTodayButton = false,
-      this.selectableDayPredicate,
-      this.extendableRangeSelectionDirection =
-          ExtendableRangeSelectionDirection.both})
-      : super(key: key);
+  const _SfDateRangePicker({
+    Key? key,
+    required this.view,
+    required this.selectionMode,
+    this.isHijri = false,
+    required this.headerHeight,
+    this.todayHighlightColor,
+    this.backgroundColor,
+    this.initialSelectedDate,
+    this.initialSelectedDates,
+    this.initialSelectedRange,
+    this.initialSelectedRanges,
+    this.toggleDaySelection = false,
+    this.enablePastDates = true,
+    this.showNavigationArrow = false,
+    required this.selectionShape,
+    required this.navigationDirection,
+    this.controller,
+    this.onViewChanged,
+    this.onSelectionChanged,
+    this.onCancel,
+    this.onSubmit,
+    required this.headerStyle,
+    required this.yearCellStyle,
+    required this.monthViewSettings,
+    required this.initialDisplayDate,
+    this.confirmText = 'OK',
+    this.cancelText = 'CANCEL',
+    this.showActionButtons = false,
+    required this.minDate,
+    required this.maxDate,
+    required this.monthCellStyle,
+    this.allowViewNavigation = true,
+    this.enableMultiView = false,
+    required this.navigationMode,
+    required this.viewSpacing,
+    required this.selectionRadius,
+    this.selectionColor,
+    this.startRangeSelectionColor,
+    this.endRangeSelectionColor,
+    this.rangeSelectionColor,
+    this.selectionTextStyle,
+    this.rangeTextStyle,
+    this.monthFormat,
+    this.cellBuilder,
+    this.showTodayButton = false,
+    this.selectableDayPredicate,
+    this.extendableRangeSelectionDirection =
+        ExtendableRangeSelectionDirection.both,
+    this.onTapCallback,
+    this.onLongPressCallback,
+  }) : super(key: key);
 
   final DateRangePickerView view;
 
@@ -5528,6 +5546,10 @@ class _SfDateRangePicker extends StatefulWidget {
   final dynamic selectableDayPredicate;
 
   final ExtendableRangeSelectionDirection extendableRangeSelectionDirection;
+
+  final Function(PickerDateRange?)? onTapCallback;
+
+  final Function(PickerDateRange?)? onLongPressCallback;
 
   @override
   _SfDateRangePickerState createState() => _SfDateRangePickerState();
@@ -5859,8 +5881,10 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
         height: _minHeight,
         color: widget.backgroundColor ?? _datePickerTheme.backgroundColor,
         child: widget.navigationMode == DateRangePickerNavigationMode.scroll
-            ? _addScrollView(_minWidth!, _minHeight!, actionButtonsHeight)
-            : _addChildren(top, height, _minWidth!, actionButtonsHeight),
+            ? _addScrollView(_minWidth!, _minHeight!, actionButtonsHeight,
+                widget.onTapCallback, widget.onLongPressCallback)
+            : _addChildren(top, height, _minWidth!, actionButtonsHeight,
+                widget.onTapCallback, widget.onLongPressCallback),
       );
     });
   }
@@ -6533,7 +6557,11 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
   }
 
   Widget _addScrollView(
-      double width, double height, double actionButtonsHeight) {
+      double width,
+      double height,
+      double actionButtonsHeight,
+      Function(PickerDateRange?)? onTapCallback,
+      Function(PickerDateRange?)? onLongPressCallback) {
     _pickerScrollController ??= ScrollController()
       ..addListener(_handleScrollChanged);
     final DateRangePickerView currentView =
@@ -6628,7 +6656,9 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
                 scrollViewItemWidth,
                 scrollViewItemHeight,
                 _backwardDateCollection[index],
-                isHorizontal);
+                isHorizontal,
+                onTapCallback,
+                onLongPressCallback);
           }),
         ),
         SliverFixedExtentList(
@@ -6644,7 +6674,9 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
                 scrollViewItemWidth,
                 scrollViewItemHeight,
                 _forwardDateCollection[index],
-                isHorizontal);
+                isHorizontal,
+                onTapCallback,
+                onLongPressCallback);
           }),
           key: _pickerKey,
         ),
@@ -6676,12 +6708,15 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
 
   /// Return widget that placed on scroll view when navigation mode is scroll.
   Widget _getScrollViewItem(
-      int index,
-      double width,
-      double height,
-      // ignore: always_specify_types, strict_raw_type
-      List dates,
-      bool isHorizontal) {
+    int index,
+    double width,
+    double height,
+    // ignore: always_specify_types, strict_raw_type
+    List dates,
+    bool isHorizontal,
+    Function(PickerDateRange?)? onTapCallback,
+    Function(PickerDateRange?)? onLongPressCallback,
+  ) {
     final DateRangePickerView currentView =
         DateRangePickerHelper.getPickerView(_view);
     final int numberOfWeeksInView =
@@ -6860,6 +6895,8 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
           getPickerStateDetails: _getPickerStateValues,
           updatePickerStateDetails: _updatePickerStateValues,
           isRtl: _isRtl,
+          onTapCallback: onTapCallback,
+          onLongPressCallback: onLongPressCallback,
         ),
       ),
     );
@@ -6889,7 +6926,12 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
   }
 
   Widget _addChildren(
-      double top, double height, double width, double actionButtonsHeight) {
+      double top,
+      double height,
+      double width,
+      double actionButtonsHeight,
+      Function(PickerDateRange?)? onTapCallback,
+      Function(PickerDateRange?)? onLongPressCallback) {
     _headerVisibleDates.value = _currentViewVisibleDates;
     height -= actionButtonsHeight;
     return Stack(children: <Widget>[
@@ -6961,6 +7003,8 @@ class _SfDateRangePickerState extends State<_SfDateRangePicker>
               _updatePickerStateValues(details);
             },
             key: _scrollViewKey,
+            onTapCallback: onTapCallback,
+            onLongPressCallback: onLongPressCallback,
           ),
         ),
       ),
@@ -8642,6 +8686,8 @@ class _PickerScrollView extends StatefulWidget {
     Key? key,
     required this.getPickerStateValues,
     required this.updatePickerStateValues,
+    this.onTapCallback,
+    this.onLongPressCallback,
   }) : super(key: key);
 
   /// Holds the picker instance to access the picker details.
@@ -8673,6 +8719,10 @@ class _PickerScrollView extends StatefulWidget {
 
   /// Defines the text scale factor of [SfDateRangePicker].
   final double textScaleFactor;
+
+  final Function(PickerDateRange?)? onTapCallback;
+
+  final Function(PickerDateRange?)? onLongPressCallback;
 
   @override
   _PickerScrollViewState createState() => _PickerScrollViewState();
@@ -8940,7 +8990,8 @@ class _PickerScrollViewState extends State<_PickerScrollView>
               node: _focusNode,
               onKey: _onKeyDown,
               child: CustomScrollViewerLayout(
-                  _addViews(context),
+                  _addViews(context, widget.onTapCallback,
+                      widget.onLongPressCallback),
                   widget.picker.navigationDirection ==
                           DateRangePickerNavigationDirection.horizontal
                       ? CustomScrollDirection.horizontal
@@ -9398,7 +9449,11 @@ class _PickerScrollViewState extends State<_PickerScrollView>
     widget.updatePickerStateValues(_pickerStateDetails);
   }
 
-  _PickerView _getView(List<dynamic> dates, Key key) {
+  _PickerView _getView(
+      List<dynamic> dates,
+      Key key,
+      Function(PickerDateRange?)? onTapCallback,
+      Function(PickerDateRange?)? onLongPressCallback) {
     return _PickerView(
       widget.picker,
       widget.controller,
@@ -9422,14 +9477,22 @@ class _PickerScrollViewState extends State<_PickerScrollView>
         _updatePickerViewStateDetails(details);
       },
       isRtl: widget.isRtl,
+      onTapCallback: onTapCallback,
+      onLongPressCallback: onLongPressCallback,
     );
   }
 
-  List<Widget> _addViews(BuildContext context) {
+  List<Widget> _addViews(
+      BuildContext context,
+      Function(PickerDateRange?)? onTapCallback,
+      Function(PickerDateRange?)? onLongPressCallback) {
     if (_children.isEmpty) {
-      _previousView = _getView(_previousViewVisibleDates, _previousViewKey);
-      _currentView = _getView(_visibleDates, _currentViewKey);
-      _nextView = _getView(_nextViewVisibleDates, _nextViewKey);
+      _previousView = _getView(_previousViewVisibleDates, _previousViewKey,
+          onTapCallback, onLongPressCallback);
+      _currentView = _getView(
+          _visibleDates, _currentViewKey, onTapCallback, onLongPressCallback);
+      _nextView = _getView(_nextViewVisibleDates, _nextViewKey, onTapCallback,
+          onLongPressCallback);
 
       _children.add(_previousView!);
       _children.add(_currentView!);
@@ -9438,11 +9501,23 @@ class _PickerScrollViewState extends State<_PickerScrollView>
     }
 
     final _PickerView previousView = _updateViews(
-        _previousView!, _previousView!.visibleDates, _previousViewVisibleDates);
-    final _PickerView currentView =
-        _updateViews(_currentView!, _currentView!.visibleDates, _visibleDates);
+        _previousView!,
+        _previousView!.visibleDates,
+        _previousViewVisibleDates,
+        onTapCallback,
+        onLongPressCallback);
+    final _PickerView currentView = _updateViews(
+        _currentView!,
+        _currentView!.visibleDates,
+        _visibleDates,
+        onTapCallback,
+        onLongPressCallback);
     final _PickerView nextView = _updateViews(
-        _nextView!, _nextView!.visibleDates, _nextViewVisibleDates);
+        _nextView!,
+        _nextView!.visibleDates,
+        _nextViewVisibleDates,
+        onTapCallback,
+        onLongPressCallback);
 
     /// Update views while the all day view height differ from original height,
     /// else repaint the appointment painter while current child visible
@@ -9462,11 +9537,16 @@ class _PickerScrollViewState extends State<_PickerScrollView>
 
   // method to check and update the views and appointments on the swiping end
   _PickerView _updateViews(
-      _PickerView view, List<dynamic> viewDates, List<dynamic> visibleDates) {
+      _PickerView view,
+      List<dynamic> viewDates,
+      List<dynamic> visibleDates,
+      Function(PickerDateRange?)? onTapCallback,
+      Function(PickerDateRange?)? onLongPressCallback) {
     final int index = _children.indexOf(view);
     // update the view with the visible dates on swiping end.
     if (viewDates != visibleDates) {
-      view = _getView(visibleDates, view.key!);
+      view =
+          _getView(visibleDates, view.key!, onTapCallback, onLongPressCallback);
       _children[index] = view;
     } // check and update the visible appointments in the view
     else if (_disabledDates != null &&
@@ -9476,7 +9556,7 @@ class _PickerScrollViewState extends State<_PickerScrollView>
         _disabledDates!.keys.first == viewDates &&
         !DateRangePickerHelper.isDateCollectionEquals(
             view.disableDatePredicates, _disabledDates!.values.first)) {
-      view = _getView(viewDates, view.key!);
+      view = _getView(viewDates, view.key!, onTapCallback, onLongPressCallback);
       _children[index] = view;
     }
 
@@ -10421,7 +10501,7 @@ class _PickerScrollViewState extends State<_PickerScrollView>
     }
 
     result = KeyEventResult.handled;
-    currentVisibleViewState._drawSelection(selectedDate);
+    currentVisibleViewState._drawSelection(selectedDate, true);
     _updateSelectionByKeyboardNavigation(selectedDate);
     widget.updatePickerStateValues(_pickerStateDetails);
     currentVisibleViewState._monthView!.selectionNotifier.value =
@@ -11099,6 +11179,8 @@ class _PickerView extends StatefulWidget {
     Key? key,
     required this.getPickerStateDetails,
     required this.updatePickerStateDetails,
+    this.onTapCallback,
+    this.onLongPressCallback,
     this.isRtl = false,
   }) : super(key: key);
 
@@ -11139,6 +11221,10 @@ class _PickerView extends StatefulWidget {
 
   final List<dynamic>? disableDatePredicates;
 
+  final Function(PickerDateRange?)? onTapCallback;
+
+  final Function(PickerDateRange?)? onLongPressCallback;
+
   @override
   _PickerViewState createState() => _PickerViewState();
 }
@@ -11172,6 +11258,8 @@ class _PickerViewState extends State<_PickerView>
   /// keyboard keys
   dynamic _lastSelectedDate;
 
+  late LongPressDownDetails _longPressDownDetails;
+
   @override
   void dispose() {
     _mouseHoverPosition.value = null;
@@ -11193,7 +11281,27 @@ class _PickerViewState extends State<_PickerView>
       case DateRangePickerView.month:
         {
           return GestureDetector(
-            onTapUp: _updateTapCallback,
+            onTapUp: (TapUpDetails details) {
+              final PickerDateRange? date = _onTapCallback(details);
+              if (date != null) {
+                widget.onTapCallback?.call(_onTapCallback(details));
+              } else {
+                _updateTapCallback(details, true);
+              }
+            },
+            onLongPress: () {
+              widget.onLongPressCallback
+                  ?.call(_onTapCallback(_longPressDownDetails));
+              _updateTapCallback(_longPressDownDetails, false);
+            },
+            onLongPressDown: (LongPressDownDetails details) {
+              _longPressDownDetails = details;
+            },
+            onDoubleTap: () {
+              widget.onLongPressCallback
+                  ?.call(_onTapCallback(_longPressDownDetails));
+              _updateTapCallback(_longPressDownDetails, false);
+            },
             onHorizontalDragStart: _getDragStartCallback(),
             onVerticalDragStart: _getDragStartCallback(),
             onHorizontalDragUpdate: _getDragUpdateCallback(),
@@ -11215,7 +11323,22 @@ class _PickerViewState extends State<_PickerView>
       case DateRangePickerView.century:
         {
           return GestureDetector(
-            onTapUp: _updateTapCallback,
+            onTapUp: (TapUpDetails details) {
+              final PickerDateRange? date = _onTapCallback(details);
+              if (date != null) {
+                widget.onTapCallback?.call(_onTapCallback(details));
+              } else {
+                _updateTapCallback(details, true);
+              }
+            },
+            onLongPress: () {
+              _updateTapCallback(_longPressDownDetails, false);
+              widget.onLongPressCallback
+                  ?.call(_onTapCallback(_longPressDownDetails));
+            },
+            onLongPressDown: (LongPressDownDetails details) {
+              _longPressDownDetails = details;
+            },
             onHorizontalDragStart: _getDragStartCallback(),
             onVerticalDragStart: _getDragStartCallback(),
             onHorizontalDragUpdate: _getDragUpdateCallback(),
@@ -11232,7 +11355,7 @@ class _PickerViewState extends State<_PickerView>
   }
 
   /// Used to draw the selection on month view.
-  void _drawSelection(dynamic selectedDate) {
+  void _drawSelection(dynamic selectedDate, bool isSelect) {
     switch (widget.picker.selectionMode) {
       case DateRangePickerSelectionMode.single:
         _drawSingleSelectionForMonth(selectedDate);
@@ -11244,7 +11367,12 @@ class _PickerViewState extends State<_PickerView>
         _drawRangeSelectionForMonth(selectedDate);
         break;
       case DateRangePickerSelectionMode.multiRange:
-        _drawRangesSelectionForMonth(selectedDate);
+        if (isSelect) {
+          selectRange(selectedDate);
+        } else {
+          removeRange(selectedDate);
+        }
+        // _drawRangesSelectionForMonth(selectedDate);
         break;
       case DateRangePickerSelectionMode.extendableRange:
         _drawExtendableRangeSelection(selectedDate);
@@ -11394,7 +11522,43 @@ class _PickerViewState extends State<_PickerView>
     );
   }
 
-  void _updateTapCallback(TapUpDetails details) {
+  PickerDateRange? _onTapCallback(dynamic details) {
+    widget.getPickerStateDetails(_pickerStateDetails);
+    final DateRangePickerView pickerView =
+        DateRangePickerHelper.getPickerView(widget.controller.view);
+    if (pickerView == DateRangePickerView.month) {
+      final int index =
+          _getSelectedIndex(details.localPosition.dx, details.localPosition.dy);
+      if (index == -1) {
+        return null;
+      }
+
+      final DateTime selectedDate = widget.visibleDates[index];
+      if (_pickerStateDetails.selectedRanges == null) {
+        return null;
+      }
+      for (int i = 0; i < _pickerStateDetails.selectedRanges!.length; i++) {
+        final PickerDateRange range =
+            _pickerStateDetails.selectedRanges![i] as PickerDateRange;
+        if (range.endDate != null) {
+          if ((selectedDate.isBefore(range.endDate!) &&
+                  selectedDate.isAfter(range.startDate!)) ||
+              range.startDate == selectedDate ||
+              range.endDate == selectedDate) {
+            return range;
+          }
+        } else {
+          if (selectedDate == range.startDate) {
+            return range;
+          }
+        }
+      }
+      return null;
+    }
+    return null;
+  }
+
+  void _updateTapCallback(dynamic details, bool isSelect) {
     final DateRangePickerView pickerView =
         DateRangePickerHelper.getPickerView(widget.controller.view);
     switch (pickerView) {
@@ -11426,7 +11590,8 @@ class _PickerViewState extends State<_PickerView>
             _handleTouch(
                 Offset(details.localPosition.dx,
                     details.localPosition.dy - viewHeaderHeight),
-                details);
+                details,
+                isSelect);
           }
         }
         break;
@@ -12442,7 +12607,7 @@ class _PickerViewState extends State<_PickerView>
     _yearView!.selectionNotifier.value = !_yearView!.selectionNotifier.value;
   }
 
-  void _handleTouch(Offset details, TapUpDetails tapUpDetails) {
+  void _handleTouch(Offset details, dynamic tapUpDetails, bool isSelect) {
     widget.getPickerStateDetails(_pickerStateDetails);
     final DateRangePickerView pickerView =
         DateRangePickerHelper.getPickerView(widget.controller.view);
@@ -12496,7 +12661,7 @@ class _PickerViewState extends State<_PickerView>
         return;
       }
 
-      _drawSelection(selectedDate);
+      _drawSelection(selectedDate, isSelect);
       widget.updatePickerStateDetails(_pickerStateDetails);
       _monthView!.selectionNotifier.value =
           !_monthView!.selectionNotifier.value;
@@ -12888,6 +13053,82 @@ class _PickerViewState extends State<_PickerView>
     _lastSelectedDate = selectedDate;
   }
 
+  void selectRange(dynamic selectedDate) {
+    _pickerStateDetails.selectedRanges ??= <dynamic>[];
+    int count = _pickerStateDetails.selectedRanges!.length;
+    dynamic lastRange;
+    if (count > 0) {
+      lastRange = _pickerStateDetails.selectedRanges![count - 1];
+    }
+    if (lastRange != null &&
+        (_pickerStateDetails.selectedRanges!
+            .any((element) => element.startDate == selectedDate))) {
+    } else {
+      _pickerStateDetails.selectedRanges!.add(widget.picker.isHijri
+          ? HijriDateRange(selectedDate, null)
+          : PickerDateRange(selectedDate, null));
+    }
+
+    count = _pickerStateDetails.selectedRanges!.length;
+    if (count > 0) {
+      _removeInterceptRanges(
+          _pickerStateDetails.selectedRanges,
+          _pickerStateDetails
+              .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1]);
+      lastRange = _pickerStateDetails
+          .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1];
+      if (count != _pickerStateDetails.selectedRanges!.length &&
+          (lastRange.endDate == null ||
+              isSameDate(lastRange.endDate, lastRange.startDate))) {
+        _pickerStateDetails.selectedRanges!.removeLast();
+      }
+    }
+  }
+
+  void removeRange(dynamic selectedDate) {
+    _pickerStateDetails.selectedRanges ??= <dynamic>[];
+    int count = _pickerStateDetails.selectedRanges!.length;
+    dynamic lastRange;
+    if (count > 0) {
+      lastRange = _pickerStateDetails.selectedRanges![count - 1];
+    }
+    if (lastRange != null &&
+        (_pickerStateDetails.selectedRanges!.any(
+          (dynamic element) {
+            return selectedDate.isAfter(element.startDate) &&
+                    selectedDate.isBefore(element.endDate) ||
+                isSameDate(element.startDate, selectedDate) ||
+                (element.endDate != null &&
+                    isSameDate(element.endDate, selectedDate));
+          },
+        ))) {
+      _pickerStateDetails.selectedRanges!.removeWhere(
+        (dynamic element) {
+          return (selectedDate.isAfter(element.startDate) &&
+                  selectedDate.isBefore(element.endDate)) ||
+              (isSameDate(element.startDate, selectedDate) ||
+                  (element.endDate != null &&
+                      isSameDate(element.endDate, selectedDate)));
+        },
+      );
+    } else {}
+
+    count = _pickerStateDetails.selectedRanges!.length;
+    if (count > 0) {
+      _removeInterceptRanges(
+          _pickerStateDetails.selectedRanges,
+          _pickerStateDetails
+              .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1]);
+      lastRange = _pickerStateDetails
+          .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1];
+      if (count != _pickerStateDetails.selectedRanges!.length &&
+          (lastRange.endDate == null ||
+              isSameDate(lastRange.endDate, lastRange.startDate))) {
+        _pickerStateDetails.selectedRanges!.removeLast();
+      }
+    }
+  }
+
   void _drawRangesSelectionForMonth(dynamic selectedDate) {
     _pickerStateDetails.selectedRanges ??= <dynamic>[];
     int count = _pickerStateDetails.selectedRanges!.length;
@@ -12895,22 +13136,30 @@ class _PickerViewState extends State<_PickerView>
     if (count > 0) {
       lastRange = _pickerStateDetails.selectedRanges![count - 1];
     }
-
-    _pickerStateDetails.selectedRanges!.add(widget.picker.isHijri
-        ? HijriDateRange(selectedDate, null)
-        : PickerDateRange(selectedDate, null));
+    if (lastRange != null &&
+        (_pickerStateDetails.selectedRanges!
+            .any((element) => element.startDate == selectedDate))) {
+      _pickerStateDetails.selectedRanges!
+          .removeWhere((element) => element.startDate == selectedDate);
+    } else {
+      _pickerStateDetails.selectedRanges!.add(widget.picker.isHijri
+          ? HijriDateRange(selectedDate, null)
+          : PickerDateRange(selectedDate, null));
+    }
 
     count = _pickerStateDetails.selectedRanges!.length;
-    _removeInterceptRanges(
-        _pickerStateDetails.selectedRanges,
-        _pickerStateDetails
-            .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1]);
-    lastRange = _pickerStateDetails
-        .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1];
-    if (count != _pickerStateDetails.selectedRanges!.length &&
-        (lastRange.endDate == null ||
-            isSameDate(lastRange.endDate, lastRange.startDate))) {
-      _pickerStateDetails.selectedRanges!.removeLast();
+    if (count > 0) {
+      _removeInterceptRanges(
+          _pickerStateDetails.selectedRanges,
+          _pickerStateDetails
+              .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1]);
+      lastRange = _pickerStateDetails
+          .selectedRanges![_pickerStateDetails.selectedRanges!.length - 1];
+      if (count != _pickerStateDetails.selectedRanges!.length &&
+          (lastRange.endDate == null ||
+              isSameDate(lastRange.endDate, lastRange.startDate))) {
+        _pickerStateDetails.selectedRanges!.removeLast();
+      }
     }
   }
 
